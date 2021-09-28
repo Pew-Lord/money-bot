@@ -1,2 +1,3 @@
 # money-bot
-Hypixel Skyblock Money Bot
+
+A Discord bot that when the command is sent, will return the current buy & sell price of an item
