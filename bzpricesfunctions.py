@@ -2,10 +2,47 @@ import bazaarpricesobj as bzobj
 
 def itemnames():
     '''
-    returns the api-specific name of every item
-    :return: (list)
+    returns the name of every item (putting the exact text written for an item will trigger
+    commands (eg. $price ____))
+    :return: (str) (str) (str) (str)
     '''
-    return bzobj.items
+    seglen = int
+    leftover = int
+    iter = 0
+    rotations = 4
+    rotation = []
+    index = 0
+    returns = []
+    str = ""
+
+    if len(bzobj.items) / 4 != int:
+        seglen = len(bzobj.items) // 4
+        leftover = len(bzobj.items) - (4 * seglen)
+    else:
+        seglen = (len(bzobj.items) / 4)
+    while rotations > 0:
+        while iter < seglen:
+            rotation.append(bzobj.items[index])
+            index += 1
+            iter += 1
+        iter = 0
+        rotations -= 1
+        str = ", ".join(rotation)
+        rotation = []
+        returns.append(str)
+        str = ""
+    if len(bzobj.items) > (4 * seglen):
+        iter = seglen * 4
+        while len(bzobj.items) >= (iter - 1):
+            rotation.append(bzobj.items[index])
+            index += 1
+            iter += 1
+        str = ", ".join(rotation)
+        returns.append(str)
+    if len(returns) != 4:
+        return returns[0], returns[1], returns[2], returns[3], returns[4]
+    else:
+        return returns[0], returns[1], returns[2], returns[3], ""
 def itemprices():
     '''
     returns the name and price of every item
