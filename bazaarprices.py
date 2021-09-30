@@ -1,6 +1,7 @@
-import requests, ujson
+# all code within this file is made by Lord#0427 on discord, unless otherwise mentioned.
+import requests, ujson # i did not make these modules
 
-data = requests.get("https://api.hypixel.net/skyblock/bazaar",  timeout=10).json()
+data = requests.get("https://api.hypixel.net/skyblock/bazaar",  timeout=10).json() # i have no affiliation with hypixel
 data = data['products']
 items = []
 for i in data:

@@ -1,10 +1,11 @@
+# all code within this file is made by Lord#0427 on discord, unless otherwise mentioned.
 import bazaarpricesobj as bzobj
 
 def itemnames():
     '''
     returns the name of every item (putting the exact text written for an item will trigger
     commands (eg. $price ____))
-    :return: (str) (str) (str) (str)
+    :return: (str) (str) (str) (str) (str)
     '''
     seglen = int
     leftover = int
@@ -46,25 +47,65 @@ def itemnames():
 def itemprices():
     '''
     returns the name and price of every item
-    :return: (dict)
+    :return: (str) (str) (str) (str) (str) (str) (str) (str) (str)
     '''
-    itemprices = {}
-    for i in range(len(bzobj.items)):
-        if bzobj.items2[i].price() == -1:
-            continue
-        itemprices[bzobj.items[i]] = bzobj.items2[i].price()
-    return itemprices
+    rotations = 8
+    iterations = len(bzobj.items) // 8
+    totaliters = 0
+    list = []
+    returns = []
+    if len(bzobj.items) / 8 != (8*iterations):
+        leftover = len(bzobj.items) - (8*iterations)
+    while rotations > 0:
+        for i in range(iterations):
+            x = "({}:{})".format((bzobj.items2[totaliters].myname()), str((bzobj.items2[totaliters].price())))
+            list.append(x)
+            totaliters += 1
+        rstring = ", ".join(list)
+        list = []
+        returns.append(rstring)
+        rotations -= 1
+    if leftover != 0:
+        while totaliters <= (len(bzobj.items)):
+            x = "({}:{})".format((bzobj.items2[totaliters].myname()), str((bzobj.items2[totaliters].price())))
+            list.append(x)
+            totaliters += 1
+        rstring = ", ".join(list)
+        returns.append(rstring)
+    else:
+        returns.append("")
+    return returns[0], returns[1], returns[2], returns[3], returns[4], returns[5], returns[6], returns[7], returns[8]
 def itemvalues():
     '''
     returns the name and value of every item
-    :return: (dict)
+    :return: (str) (str) (str) (str) (str) (str) (str) (str) (str)
     '''
-    itemprices = {}
-    for i in range(len(bzobj.items)):
-        if bzobj.items2[i].value() == -1:
-            continue
-        itemprices[bzobj.items[i]] = bzobj.items2[i].value()
-    return itemprices
+    rotations = 8
+    iterations = len(bzobj.items) // 8
+    totaliters = 0
+    list = []
+    returns = []
+    if len(bzobj.items) / 8 != (8*iterations):
+        leftover = len(bzobj.items) - (8*iterations)
+    while rotations > 0:
+        for i in range(iterations):
+            x = "({}:{})".format((bzobj.items2[totaliters].myname()), str((bzobj.items2[totaliters].value())))
+            list.append(x)
+            totaliters += 1
+        rstring = ", ".join(list)
+        list = []
+        returns.append(rstring)
+        rotations -= 1
+    if leftover != 0:
+        while totaliters <= (len(bzobj.items)):
+            x = "({}:{})".format((bzobj.items2[totaliters].myname()), str((bzobj.items2[totaliters].value())))
+            list.append(x)
+            totaliters += 1
+        rstring = ", ".join(list)
+        returns.append(rstring)
+    else:
+        returns.append("")
+    return returns[0], returns[1], returns[2], returns[3], returns[4], returns[5], returns[6], returns[7], returns[8]
 def specificitemprice(item_name):
     '''
     returns the price of a specific item
@@ -79,3 +120,4 @@ def specificitemvalue(item_name):
     :return: (float)
     '''
     return bzobj.items2[bzobj.items.index(item_name)].value()
+print(itemvalues())
