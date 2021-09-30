@@ -120,4 +120,3 @@ def specificitemvalue(item_name):
     :return: (float)
     '''
     return bzobj.items2[bzobj.items.index(item_name)].value()
-print(itemvalues())
