@@ -59,12 +59,77 @@ async def allvalues(message, arg = ""):
         await message.channel.send("(9/9)```{}```".format(msg9))
 
 @bot.command()
-async def Price(message, arg):
-    await message.channel.send("{} costs {} coins each.".format(message, bz.specificitemprice(message)))
-
+async def price(message, arg, arg2 = "", arg3 = "", arg4 = "", arg5 = ""):
+    args = []
+    lastarg = 1
+    if arg2 == "":
+        lastarg = 2
+        args.append(arg)
+    elif arg3 == "":
+        lastarg = 3
+        args.append(arg)
+        args.append(arg2)
+    elif arg4 == "":
+        lastarg = 4
+        args.append(arg)
+        args.append(arg2)
+        args.append(arg3)
+    elif arg5 == "":
+        lastarg = 5
+        args.append(arg)
+        args.append(arg2)
+        args.append(arg3)
+        args.append(arg4)
+    elif arg5 != "":
+        lastarg = 6
+        args.append(arg)
+        args.append(arg2)
+        args.append(arg3)
+        args.append(arg4)
+        args.append(arg5)
+    else:
+        args.append(arg)
+    newarg = " ".join(args)
+    if bz.specificitemprice(newarg) == -1:
+        await message.channel.send("```There are currently no sell orders for {}```".format(newarg))
+    else:
+        await message.channel.send("```{} is worth {} coins each.```".format(newarg, bz.specificitemprice(newarg)))
 @bot.command()
-async def value(message, arg):
-    await message.channel.send("{} is worth {} coins each.".format(message, bz.specificitemvalue(message)))
+async def value(message, arg, arg2 = "", arg3 = "", arg4 = "", arg5 = ""):
+    args = []
+    lastarg = 1
+    if arg2 == "":
+        lastarg = 2
+        args.append(arg)
+    elif arg3 == "":
+        lastarg = 3
+        args.append(arg)
+        args.append(arg2)
+    elif arg4 == "":
+        lastarg = 4
+        args.append(arg)
+        args.append(arg2)
+        args.append(arg3)
+    elif arg5 == "":
+        lastarg = 5
+        args.append(arg)
+        args.append(arg2)
+        args.append(arg3)
+        args.append(arg4)
+    elif arg5 != "":
+        lastarg = 6
+        args.append(arg)
+        args.append(arg2)
+        args.append(arg3)
+        args.append(arg4)
+        args.append(arg5)
+    else:
+        args.append(arg)
+    newarg = " ".join(args)
+    if bz.specificitemvalue(newarg) == -1:
+        await message.channel.send("```There are currently no buy orders for {}```".format(newarg))
+    else:
+        await message.channel.send("```{} is worth {} coins each.```".format(newarg, bz.specificitemvalue(newarg)))
 '''
 message.author.mention (@'s the author)
 message.channel.send (sends message in channel)

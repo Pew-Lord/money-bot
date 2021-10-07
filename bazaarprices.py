@@ -4,6 +4,8 @@ import requests, ujson # i did not make these modules
 data = requests.get("https://api.hypixel.net/skyblock/bazaar",  timeout=10).json() # i have no affiliation with hypixel
 data = data['products']
 items = []
+templen = 0
+templen2 = []
 for i in data:
     temp = ""
     templist = []
@@ -12,6 +14,10 @@ for i in data:
     i = i.split()
     for x in i:
         x = x.capitalize()
+        if len(i) > templen:
+            templen = len(i)
+            templen2 = i
+
         templist.append(x)
     
     temp = " ".join(templist)
@@ -52,8 +58,11 @@ for i in range(len(items)):
     if not ":" in items[i]:
         continue
     #print(items[i])
-print(buyorderprice["Raw Fish:3"])
-print(sellorderprice["Raw Fish:3"])
+
+#print(buyorderprice["Raw Fish:3"])
+#print(sellorderprice["Raw Fish:3"])
+print(buyorderprice["Enchanted Carrot On A Stick"])
+print(sellorderprice["Enchanted Carrot On A Stick"])
 wierdItems = {
     "Log 2:1": "Dark Oak Wood",
     "Log:1": "Spruce Wood",
@@ -66,7 +75,6 @@ wierdItems = {
     "":""
 
 }
-
 '''
 Ink Sack:3
 Ink Sack:4
