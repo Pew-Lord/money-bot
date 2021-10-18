@@ -3,7 +3,7 @@ import discord # i did not make this module
 from discord.ext import commands # i did not make this module
 import bzpricesfunctions as bz
 from time import sleep
-
+import auctionprices as ah
 bot = commands.Bot(command_prefix='$', case_insensitive=True)
 bot.remove_command('help')
 
@@ -138,6 +138,20 @@ async def value(message, arg, arg2 = "", arg3 = "", arg4 = "", arg5 = ""):
         await message.channel.send("```There are currently no buy orders for {}```".format(newarg))
     else:
         await message.channel.send("```{} is worth {} coins each.```".format(newarg, bz.specificitemvalue(newarg)))
+@bot.command()
+async def ahprice(message, *args):
+    arg = " ".join(args)
+    await message.channel.send("This may take some time...")
+    msg = ah.getitemprice(arg)
+    if msg[0] == "N/A" or msg[1] == -1 or msg[2] == "N/A":
+        await message.channel.send("Sorry, but there are no bin auctions for {}.".format(arg))
+    else:
+        msgstr = "The cheapest {} is {}, you can look at the auction with the command /viewauction {}".format(msg[0], msg[1], msg[2])
+        await message.channel.send("{}, {}".format(message.author.mention, msgstr))
+@bot.command()
+async def star(message):
+    await message.channel.send("✪")
+
 '''
 message.author.mention (@'s the author)
 message.channel.send (sends message in channel)
