@@ -112,6 +112,12 @@ def specificitemprice(item_name):
     :param item_name: (str)
     :return: (float)
     '''
+    item_name = item_name.split()
+    templist = []
+    for x in item_name:
+        x = x.capitalize()
+        templist.append(x)
+    item_name = " ".join(templist)
     return bzobj.items2[bzobj.items.index(item_name)].price()
 def specificitemvalue(item_name):
     '''

@@ -66,36 +66,7 @@ async def allvalues(message, arg = ""):
         await message.channel.send("(9/9)```{}```".format(msg9))
 
 @bot.command()
-async def price(message, arg, arg2 = "", arg3 = "", arg4 = "", arg5 = ""):
-    args = []
-    lastarg = 1
-    if arg2 == "":
-        lastarg = 2
-        args.append(arg)
-    elif arg3 == "":
-        lastarg = 3
-        args.append(arg)
-        args.append(arg2)
-    elif arg4 == "":
-        lastarg = 4
-        args.append(arg)
-        args.append(arg2)
-        args.append(arg3)
-    elif arg5 == "":
-        lastarg = 5
-        args.append(arg)
-        args.append(arg2)
-        args.append(arg3)
-        args.append(arg4)
-    elif arg5 != "":
-        lastarg = 6
-        args.append(arg)
-        args.append(arg2)
-        args.append(arg3)
-        args.append(arg4)
-        args.append(arg5)
-    else:
-        args.append(arg)
+async def price(message, *args):
     newarg = " ".join(args)
     if bz.specificitemprice(newarg) == -1:
         await message.channel.send("```There are currently no sell orders for {}```".format(newarg))
@@ -103,36 +74,7 @@ async def price(message, arg, arg2 = "", arg3 = "", arg4 = "", arg5 = ""):
         await message.channel.send("```{} is worth {} coins each.```".format(newarg, bz.specificitemprice(newarg)))
 
 @bot.command()
-async def value(message, arg, arg2 = "", arg3 = "", arg4 = "", arg5 = ""):
-    args = []
-    lastarg = 1
-    if arg2 == "":
-        lastarg = 2
-        args.append(arg)
-    elif arg3 == "":
-        lastarg = 3
-        args.append(arg)
-        args.append(arg2)
-    elif arg4 == "":
-        lastarg = 4
-        args.append(arg)
-        args.append(arg2)
-        args.append(arg3)
-    elif arg5 == "":
-        lastarg = 5
-        args.append(arg)
-        args.append(arg2)
-        args.append(arg3)
-        args.append(arg4)
-    elif arg5 != "":
-        lastarg = 6
-        args.append(arg)
-        args.append(arg2)
-        args.append(arg3)
-        args.append(arg4)
-        args.append(arg5)
-    else:
-        args.append(arg)
+async def value(message, *args):
     newarg = " ".join(args)
     if bz.specificitemvalue(newarg) == -1:
         await message.channel.send("```There are currently no buy orders for {}```".format(newarg))
@@ -142,11 +84,11 @@ async def value(message, arg, arg2 = "", arg3 = "", arg4 = "", arg5 = ""):
 async def ahprice(message, *args):
     arg = " ".join(args)
     await message.channel.send("This may take some time...")
-    msg = ah.getitemprice(arg)
+    msg = ah.ahPrice(arg)
     if msg[0] == "N/A" or msg[1] == -1 or msg[2] == "N/A":
         await message.channel.send("Sorry, but there are no bin auctions for {}.".format(arg))
     else:
-        msgstr = "The cheapest {} is {}, you can look at the auction with the command /viewauction {}".format(msg[0], msg[1], msg[2])
+        msgstr = "The cheapest {} is {}, you can look at the auction with the command ```/viewauction {}```.".format(msg[0], msg[1], msg[2])
         await message.channel.send("{}, {}".format(message.author.mention, msgstr))
 @bot.command()
 async def star(message):
