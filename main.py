@@ -2,9 +2,14 @@
 import discord # i did not make this module
 from discord.ext import commands # i did not make this module
 import bzpricesfunctions as bz
+from time import sleep
 
 bot = commands.Bot(command_prefix='$', case_insensitive=True)
 bot.remove_command('help')
+
+@bot.event
+async def on_ready():
+    print("Bot is running, time to make money!")
 
 @bot.command()
 async def Items(message, arg = ""):
@@ -28,6 +33,7 @@ async def allprices(message, arg = ""):
     else:
         msgnum = 9
     await message.channel.send("Please note, if an item's price is equal to -1, then it has no active sell orders.")
+    sleep(3)
     await message.channel.send("(1/{})```{}```".format(msgnum, msg1))
     await message.channel.send("(2/{})```{}```".format(msgnum, msg2))
     await message.channel.send("(3/{})```{}```".format(msgnum, msg3))
@@ -47,6 +53,7 @@ async def allvalues(message, arg = ""):
     else:
         msgnum = 9
     await message.channel.send("Please note, if an item's price is equal to -1, then it has no active sell orders.")
+    sleep(3)
     await message.channel.send("(1/{})```{}```".format(msgnum, msg1))
     await message.channel.send("(2/{})```{}```".format(msgnum, msg2))
     await message.channel.send("(3/{})```{}```".format(msgnum, msg3))
@@ -94,6 +101,7 @@ async def price(message, arg, arg2 = "", arg3 = "", arg4 = "", arg5 = ""):
         await message.channel.send("```There are currently no sell orders for {}```".format(newarg))
     else:
         await message.channel.send("```{} is worth {} coins each.```".format(newarg, bz.specificitemprice(newarg)))
+
 @bot.command()
 async def value(message, arg, arg2 = "", arg3 = "", arg4 = "", arg5 = ""):
     args = []
@@ -134,6 +142,7 @@ async def value(message, arg, arg2 = "", arg3 = "", arg4 = "", arg5 = ""):
 message.author.mention (@'s the author)
 message.channel.send (sends message in channel)
 '''
-keyfile = open("botkey.txt", "r")
+
+keyfile = open("./Python/money-bot/botkey.txt", "r")
 botkey = keyfile.readlines()
 bot.run(botkey[0])
