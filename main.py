@@ -68,27 +68,33 @@ async def allvalues(message, arg = ""):
 @bot.command()
 async def price(message, *args):
     newarg = " ".join(args)
-    if bz.specificitemprice(newarg) == -1:
-        await message.channel.send("```There are currently no sell orders for {}```".format(newarg))
-    else:
-        await message.channel.send("```{} is worth {} coins each.```".format(newarg, bz.specificitemprice(newarg)))
+    try:
+        if bz.specificitemprice(newarg) == -1:
+            await message.channel.send("```There are currently no sell orders for {}```".format(newarg))
+        else:
+            await message.channel.send("```{} is worth {} coins each.```".format(newarg, bz.specificitemprice(newarg)))
+    except ValueError:
+        await message.channel.send("Sorry, but you mistyped your item.")
 
 @bot.command()
 async def value(message, *args):
     newarg = " ".join(args)
-    if bz.specificitemvalue(newarg) == -1:
-        await message.channel.send("```There are currently no buy orders for {}```".format(newarg))
-    else:
-        await message.channel.send("```{} is worth {} coins each.```".format(newarg, bz.specificitemvalue(newarg)))
+    try:
+        if bz.specificitemvalue(newarg) == -1:
+            await message.channel.send("```There are currently no buy orders for {}```".format(newarg))
+        else:
+            await message.channel.send("```{} is worth {} coins each.```".format(newarg, bz.specificitemvalue(newarg)))
+    except ValueError:
+        await message.channel.send("Sorry, but you mistyped your item.")
 @bot.command()
 async def ahprice(message, *args):
     arg = " ".join(args)
     await message.channel.send("This may take some time...")
     msg = ah.ahPrice(arg)
     if msg[0] == "N/A" or msg[1] == -1 or msg[2] == "N/A":
-        await message.channel.send("Sorry, but there are no bin auctions for {}.".format(arg))
+        await message.channel.send("Sorry, but there are no bin auctions for {}. Or you mistyped your item name.".format(arg))
     else:
-        msgstr = "The cheapest {} is {}, you can look at the auction with the command ```/viewauction {}```.".format(msg[0], msg[1], msg[2])
+        msgstr = "The cheapest {} is {}, you can look at the auction with the command ```/viewauction {}```".format(msg[0], msg[1], msg[2])
         await message.channel.send("{}, {}".format(message.author.mention, msgstr))
 @bot.command()
 async def star(message):
