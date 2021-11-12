@@ -1,5 +1,6 @@
 # all code within this file is made by Lord#0427 on discord, unless otherwise mentioned.
 import bazaarpricesobj as bzobj
+from math import floor
 
 def itemnames():
     '''
@@ -132,3 +133,36 @@ def specificitemvalue(item_name):
         templist.append(x)
     item_name = " ".join(templist)
     return bzobj.items2[bzobj.items.index(item_name)].value()
+
+
+def goldenTooth(MONEY):
+    MONEY = MONEY / 10000
+    MONEY = floor(MONEY)
+    MONEY = MONEY * 10000
+    GT = specificitemvalue("Golden Tooth")
+    WT = specificitemprice("Wolf Tooth")
+    EG = specificitemprice("Enchanted Gold")
+    AMOUNT = 0
+    GT = GT / 100
+    GT = floor(GT)
+    GT = GT * 100
+    WT = WT / 100
+    WT = round(WT, 1)
+    WT = WT * 100
+    EG = EG / 100
+    EG = round(EG, 1)
+    EG = EG * 100
+    WT = WT * 128
+    EG = EG * 32
+    PROFIT = GT - (EG + WT)
+    TOTALCOST = EG + WT
+    while True:
+        if not MONEY <= TOTALCOST * (1 + AMOUNT):
+            AMOUNT += 1
+            continue
+        break
+    return (128 * AMOUNT, 32 * AMOUNT, AMOUNT, PROFIT * AMOUNT)
+
+
+if __name__ == "__main__":
+    print(goldenTooth(2320000))
