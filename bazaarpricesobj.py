@@ -68,3 +68,25 @@ for i in data:
     tempname = tempid
     items2[iter] = Items(tempid, tempname, tempsell, tempbuy)
     iter += 1
+
+def updatePrices():
+    data = requests.get("https://api.hypixel.net/skyblock/bazaar",  timeout=10).json()
+    data = data["products"]
+    upiter = 0
+    for i in data:
+        j = data[i]
+        k = j["buy_summary"]
+        l = j["sell_summary"]
+        try:
+            m = k[0]
+            tempsell = m["pricePerUnit"]
+        except IndexError:
+            tempsell = -1
+        try:
+            n = l[0]
+            tempbuy = n["pricePerUnit"]
+        except IndexError:
+            tempbuy = -1
+        items2[upiter].sell = tempsell
+        items2[upiter].buy = tempbuy
+        upiter += 1

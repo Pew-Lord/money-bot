@@ -8,6 +8,7 @@ def itemnames():
     commands (eg. $price ____))
     :return: (str) (str) (str) (str) (str)
     '''
+    bzobj.updatePrices()
     seglen = int
     leftover = int
     iter = 0
@@ -50,6 +51,7 @@ def itemprices():
     returns the name and price of every item
     :return: (str) (str) (str) (str) (str) (str) (str) (str) (str)
     '''
+    bzobj.updatePrices()
     rotations = 8
     iterations = len(bzobj.items) // 8
     totaliters = 0
@@ -81,6 +83,7 @@ def itemvalues():
     returns the name and value of every item
     :return: (str) (str) (str) (str) (str) (str) (str) (str) (str)
     '''
+    bzobj.updatePrices()
     rotations = 8
     iterations = len(bzobj.items) // 8
     totaliters = 0
@@ -113,6 +116,7 @@ def specificitemprice(item_name):
     :param item_name: (str)
     :return: (float)
     '''
+    bzobj.updatePrices()
     item_name = item_name.split()
     templist = []
     for x in item_name:
@@ -126,6 +130,7 @@ def specificitemvalue(item_name):
     :param item_name: (str)
     :return: (float)
     '''
+    bzobj.updatePrices()
     item_name = item_name.split()
     templist = []
     for x in item_name:
@@ -136,6 +141,12 @@ def specificitemvalue(item_name):
 
 
 def goldenTooth(MONEY):
+    '''
+    returns the amount of wolf teeth and enchanted gold to buy, along with the profit and amount of golden teeth it wil produce
+    :param MONEY: (int)
+    :return: (tuple)
+    '''
+    bzobj.updatePrices()
     MONEY = MONEY / 10000
     MONEY = floor(MONEY)
     MONEY = MONEY * 10000
@@ -165,4 +176,4 @@ def goldenTooth(MONEY):
 
 
 if __name__ == "__main__":
-    print(goldenTooth(2320000))
+    print(specificitemvalue("Golden Tooth"))

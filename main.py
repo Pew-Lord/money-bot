@@ -106,7 +106,7 @@ async def GT(message, arg):
     
     if arg != "N/A":
         TUPLE = bz.goldenTooth(int(arg))
-        await message.channel.send("buy {} Wolf teeth, {} enchanted gold, and you will get {} golden teeth for a total of {} profit.".format("{:,}".format(TUPLE[0]), "{:,}".format(TUPLE[1]), "{:,}".format(TUPLE[2]), "{:,}".format(TUPLE[3])))
+        await message.channel.send("buy **{}** Wolf teeth, **{}** enchanted gold, and you will get roughly **{}** golden teeth for a total of **{}** coins profit.".format("{:,}".format(TUPLE[0]), "{:,}".format(TUPLE[1]), "{:,}".format(TUPLE[2]), "{:,}".format(TUPLE[3])))
 @bot.command()
 async def star(message):
     await message.channel.send("✪")
@@ -116,6 +116,6 @@ message.author.mention (@'s the author)
 message.channel.send (sends message in channel)
 '''
 
-keyfile = open("./Python/money-bot/botkey.txt", "r")
+keyfile = open("Python/money-bot/botkey.txt", "r")
 botkey = keyfile.readlines()
 bot.run(botkey[0])
