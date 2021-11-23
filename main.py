@@ -13,11 +13,12 @@ async def on_ready():
 # help - "commands: $items - sends all items in the hypixel skyblock bazaar. $allprices - sends all items in the hypixel skyblock bazaar along with their price. $allvalues - sends all items in the hypixel skyblock bazaar along with their value.$price item - sends the price of a specific item (item is replaced with the name of the item you want) $value item - sends the value of a specific item (item is replaced with the name of the item you want) $ahprice item - sends the lowest price for a specific item on the auction house (item is replaced with the name of the item you want) $gt amount - sends the amount of wolf teeth & enchanted gold to buy to craft a certain amount of golden teeth, and how much profit you will recieve.$star - sends the star used in item names, the star can be used to find the item price of the item with a certain number of stars."
 @bot.command()
 async def Items(message, arg = ""):
-    msg1, msg2, msg3, msg4, msg5 = bz.itemnames()
+    msg1, msg2, msg3, msg4, msg5 = bz.newItems()
     if msg5 != "":
         msgnum = 5
     else:
         msgnum = 4
+    print(message.author)
     await message.channel.send("(1/{})```{}```".format(msgnum, msg1))
     await message.channel.send("(2/{})```{}```".format(msgnum, msg2))
     await message.channel.send("(3/{})```{}```".format(msgnum, msg3))
@@ -27,7 +28,7 @@ async def Items(message, arg = ""):
 
 @bot.command()
 async def allprices(message, arg = ""):
-    msg1, msg2, msg3, msg4, msg5, msg6, msg7, msg8, msg9 = bz.itemprices()
+    msg1, msg2, msg3, msg4, msg5, msg6, msg7, msg8, msg9 = bz.newPrices()
     if msg9 == "":
         msgnum = 8
     else:
@@ -47,7 +48,7 @@ async def allprices(message, arg = ""):
 
 @bot.command()
 async def allvalues(message, arg = ""):
-    msg1, msg2, msg3, msg4, msg5, msg6, msg7, msg8, msg9 = bz.itemvalues()
+    msg1, msg2, msg3, msg4, msg5, msg6, msg7, msg8, msg9 = bz.newValues()
     if msg9 == "":
         msgnum = 8
     else:

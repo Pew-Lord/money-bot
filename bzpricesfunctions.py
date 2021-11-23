@@ -17,7 +17,7 @@ def itemnames():
     returns = []
     str = ""
 
-    if len(bzobj.items) / 4 != int:
+    if len(bzobj.items) % 4 != 0:
         seglen = len(bzobj.items) // 4
         leftover = len(bzobj.items) - (4 * seglen)
     else:
@@ -45,6 +45,155 @@ def itemnames():
         return returns[0], returns[1], returns[2], returns[3], returns[4]
     else:
         return returns[0], returns[1], returns[2], returns[3], ""
+
+def newItems():
+    """
+    New function (replacing itemnames())
+    :return: (str) (str) (str) (str) (str)
+    """
+    items = []
+    sublist = []
+    segmentlength = 0
+    SL2 = 0
+    segmentstart = 0
+    if len(bzobj.items) % 4 == 0:
+        segmentlength = int(len(bzobj.items) / 4)
+        SL2 = segmentlength
+        for i in range(4):
+            for i in range(segmentstart, SL2):
+                sublist.append(bzobj.items[i])
+            segmentstart += segmentlength
+            SL2 += segmentlength
+            sublist = ", ".join(sublist)
+            items.append(sublist)
+            sublist = []
+    else:
+        extras = len(bzobj.items) % 4
+        segmentlength = int((len(bzobj.items)-extras) / 4)
+        SL2 = segmentlength
+        for i in range(4):
+            for i in range(segmentstart, SL2):
+                sublist.append(bzobj.items[i])
+            if i != 3:
+                segmentstart += segmentlength
+                SL2 += segmentlength
+            sublist = ", ".join(sublist)
+            items.append(sublist)
+            sublist = []
+        segmentstart += segmentlength
+        segmentstart = 4 * segmentlength
+        SL2 = segmentstart + extras
+        for i in range(segmentstart, SL2):
+            sublist.append(bzobj.items[i])
+        items.append(", ".join(sublist))
+    if len(items) == 4:
+        return items[0], items[1], items[2], items[3], ""
+    else:
+        return items[0], items[1], items[2], items[3], items[4]
+
+def newPrices():
+    """
+    new function to replace itemprices()
+    :return: (str) (str) (str) (str) (str) (str) (str) (str) (str)
+    """
+    items = []
+    sublist = []
+    segmentlength = 0
+    SL2 = 0
+    segmentstart = 0
+    if len(bzobj.items) % 8 == 0:
+        segmentlength = int(len(bzobj.items) / 8)
+        SL2 = segmentlength
+        for i in range(8):
+            for i in range(segmentstart, SL2):
+                sublist.append(("{}; {}".format(bzobj.items[i], bzobj.items2[i].price())))
+            segmentstart += segmentlength
+            SL2 += segmentlength
+            sublist = ", ".join(sublist)
+            items.append(sublist)
+            sublist = []
+    else:
+        extras = len(bzobj.items) % 8
+        segmentlength = int((len(bzobj.items)-extras) / 8)
+        SL2 = segmentlength
+        for i in range(8):
+            for i in range(segmentstart, SL2):
+                sublist.append(("{}; {}".format(bzobj.items[i], bzobj.items2[i].price())))
+            if i != 7:
+                segmentstart += segmentlength
+                SL2 += segmentlength
+            sublist = ", ".join(sublist)
+            items.append(sublist)
+            sublist = []
+        segmentstart += segmentlength
+        segmentstart = 8 * segmentlength
+        SL2 = segmentstart + extras
+        for i in range(segmentstart, SL2):
+            sublist.append(("{}; {}".format(bzobj.items[i], bzobj.items2[i].price())))
+        items.append(", ".join(sublist))
+    if len(items) == 8:
+        return items[0], items[1], items[2], items[3], items[4], items[5], items[6], items[7], ""
+    else:
+        return items[0], items[1], items[2], items[3], items[4], items[5], items[6], items[7], items[8]
+
+def newValues():
+    """
+    new function (replacing itemvalues())
+    :return: (str) (str) (str) (str) (str)(str)(str) (str) (str)
+    """
+    items = []
+    sublist = []
+    segmentlength = 0
+    SL2 = 0
+    segmentstart = 0
+    if len(bzobj.items) % 8 == 0:
+        segmentlength = int(len(bzobj.items) / 8)
+        SL2 = segmentlength
+        for i in range(8):
+            for i in range(segmentstart, SL2):
+                sublist.append(("{}; {}".format(bzobj.items[i], bzobj.items2[i].value())))
+            segmentstart += segmentlength
+            SL2 += segmentlength
+            sublist = ", ".join(sublist)
+            items.append(sublist)
+            sublist = []
+    else:
+        extras = len(bzobj.items) % 8
+        segmentlength = int((len(bzobj.items)-extras) / 8)
+        SL2 = segmentlength
+        for i in range(8):
+            for i in range(segmentstart, SL2):
+                sublist.append(("{}; {}".format(bzobj.items[i], bzobj.items2[i].value())))
+            if i != 7:
+                segmentstart += segmentlength
+                SL2 += segmentlength
+            sublist = ", ".join(sublist)
+            items.append(sublist)
+            sublist = []
+        segmentstart += segmentlength
+        segmentstart = 8 * segmentlength
+        SL2 = segmentstart + extras
+        for i in range(segmentstart, SL2):
+            sublist.append(("{}; {}".format(bzobj.items[i], bzobj.items2[i].price())))
+        items.append(", ".join(sublist))
+    if len(items) == 8:
+        return items[0], items[1], items[2], items[3], items[4], items[5], items[6], items[7], ""
+    else:
+        return items[0], items[1], items[2], items[3], items[4], items[5], items[6], items[7], items[8]
+
+def profit(item_name):
+    """
+    gets the sell price and buy price of an item, and returns the profit you can make on an item
+    :param item_name: (str)
+    :return: (float)
+    """
+    itemindex = 0
+    for i in range(len(bzobj.items)):
+        if bzobj.nameCleaner(item_name) == bzobj.items[i]:
+            itemindex = i
+            break
+    return round(bzobj.items2[i].value() - bzobj.items2[i].price(), 2)
+
 def itemprices():
     '''
     returns the name and price of every item
@@ -107,6 +256,7 @@ def itemvalues():
     else:
         returns.append("")
     return returns[0], returns[1], returns[2], returns[3], returns[4], returns[5], returns[6], returns[7], returns[8]
+
 def specificitemprice(item_name):
     '''
     returns the price of a specific item
@@ -165,4 +315,4 @@ def goldenTooth(MONEY):
 
 
 if __name__ == "__main__":
-    print(goldenTooth(2320000))
+    pass
