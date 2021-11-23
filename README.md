@@ -20,7 +20,7 @@ The commands you can use are as follows:
 
 NOTE: arg is replaced by the item name eg. builder's wand (not case sensitive)
 ## Use
-To use this program, simply download the files and run main.py, making sure you have a valid Bot token in a file named botkey.txt.
+To use this program, simply download the files and run runbot.py, making sure you have a valid Bot token in a file named botkey.txt.
 ## Support
 For any inquiries, feel free to contact ```Lord#0427``` on discord.
 ## Contributions
