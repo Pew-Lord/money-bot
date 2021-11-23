@@ -14,7 +14,7 @@ The commands you can use are as follows:
 
 * you can use the command ```$profit arg``` to find out the profit of an item in the bazaar
 
-*you can use the command ```$margin arg``` to find out the profit margin (% difference of _sell_ over _buy_) of an item in the bazaar
+* you can use the command ```$margin arg``` to find out the profit margin (% difference of _sell_ over _buy_) of an item in the bazaar
 
 * Additionally, you can get the ah price of an item by using the command ```$ahprice arg```. 
 
