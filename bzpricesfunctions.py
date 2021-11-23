@@ -204,6 +204,29 @@ def profit(item_name):
     else:
         return None
 
+def profitMargin(item_name):
+    """
+    gets the sell price and buy price of an item and returns the % profit
+    :param item_name: (str)
+    :return: (float)
+    """
+    bzobj.updatePrices()
+    itemindex = 0
+    for i in range(len(bzobj.items)):
+        if bzobj.nameCleaner(item_name) == bzobj.items[i]:
+            itemindex = i
+            break
+    if itemindex == 0:
+        return False
+    if not bzobj.items2[itemindex].value() == -1 and not bzobj.items2[itemindex].price() == -1:
+        sell = bzobj.items2[itemindex].value()
+        buy = bzobj.items2[itemindex].price()
+        margin = sell-buy
+        margin = margin / sell
+        return round(margin * 100, 2)
+    else:
+        return None
+
 def specificitemprice(item_name):
     '''
     returns the price of a specific item
@@ -269,4 +292,4 @@ def goldenTooth(MONEY):
     return (128 * AMOUNT, 32 * AMOUNT, AMOUNT, PROFIT * AMOUNT)
 
 if __name__ == "__main__":
-    pass
+    print(profitMargin("golden tooth"))

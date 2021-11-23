@@ -121,6 +121,17 @@ async def profit(message, *args):
             await message.channel.send("Could not find your item, please make sure you typed it correctly, case does **not** matter.")
         else:
             await message.channel.send("{} has a current profit of **{}** coins.".format(arg, bz.profit(arg)))
+@bot.command()
+async def margin(message, *args):
+    arg = " ".join(args)
+    if bz.profitMargin(arg) == None:
+        await message.channel.send("there are either no sell offers or buy offers for {}, please try again later.".format(arg))
+    else:
+        if bz.profitMargin(arg) == False:
+            await message.channel.send("Could not find your item, please make sure you typed it correctly, case does **not** matter.")
+        else:
+            await message.channel.send("{} has a current profit margin of **{}%**.".format(arg, bz.profitMargin(arg)))
+
 
 '''
 message.author.mention (@'s the author)
