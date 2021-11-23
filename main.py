@@ -107,16 +107,31 @@ async def GT(message, arg):
     
     if arg != "N/A":
         TUPLE = bz.goldenTooth(int(arg))
-        await message.channel.send("buy {} Wolf teeth, {} enchanted gold, and you will get {} golden teeth for a total of {} profit.".format("{:,}".format(TUPLE[0]), "{:,}".format(TUPLE[1]), "{:,}".format(TUPLE[2]), "{:,}".format(TUPLE[3])))
+        await message.channel.send("buy **{}** Wolf teeth, **{}** enchanted gold, and you will get roughly **{}** golden teeth for a total of **{}** coins profit.".format("{:,}".format(TUPLE[0]), "{:,}".format(TUPLE[1]), "{:,}".format(TUPLE[2]), "{:,}".format(TUPLE[3])))
 @bot.command()
 async def star(message):
     await message.channel.send("✪")
+@bot.command()
+async def profit(message, *args):
+    arg = " ".join(args)
+    if bz.profit(arg) == None:
+        await message.channel.send("there are either no sell offers or buy offers for {}, please try again later.".format(arg))
+    else:
+        if bz.profit(arg) == False:
+            await message.channel.send("Could not find your item, please make sure you typed it correctly, case does **not** matter.")
+        else:
+            await message.channel.send("{} has a current profit of **{}** coins.".format(arg, bz.profit(arg)))
 
 '''
 message.author.mention (@'s the author)
 message.channel.send (sends message in channel)
 '''
 
-keyfile = open("./Python/money-bot/botkey.txt", "r")
-botkey = keyfile.readlines()
-bot.run(botkey[0])
+if __name__ == "__main__":
+    keyfile = open("Python/money-bot/botkey.txt", "r")
+    botkey = keyfile.readlines()
+    bot.run(botkey[0])
+else:
+    keyfile = open("botkey.txt")
+    botkey = keyfile.readlines()
+    bot.run(botkey[0])

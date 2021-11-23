@@ -8,6 +8,7 @@ def itemnames():
     commands (eg. $price ____))
     :return: (str) (str) (str) (str) (str)
     '''
+    bzobj.updatePrices()
     seglen = int
     leftover = int
     iter = 0
@@ -51,6 +52,7 @@ def newItems():
     New function (replacing itemnames())
     :return: (str) (str) (str) (str) (str)
     """
+    bzobj.updatePrices()
     items = []
     sublist = []
     segmentlength = 0
@@ -96,6 +98,7 @@ def newPrices():
     new function to replace itemprices()
     :return: (str) (str) (str) (str) (str) (str) (str) (str) (str)
     """
+    bzobj.updatePrices()
     items = []
     sublist = []
     segmentlength = 0
@@ -141,6 +144,7 @@ def newValues():
     new function (replacing itemvalues())
     :return: (str) (str) (str) (str) (str)(str)(str) (str) (str)
     """
+    bzobj.updatePrices()
     items = []
     sublist = []
     segmentlength = 0
@@ -187,75 +191,18 @@ def profit(item_name):
     :param item_name: (str)
     :return: (float)
     """
+    bzobj.updatePrices()
     itemindex = 0
     for i in range(len(bzobj.items)):
         if bzobj.nameCleaner(item_name) == bzobj.items[i]:
             itemindex = i
             break
-    return round(bzobj.items2[i].value() - bzobj.items2[i].price(), 2)
-
-def itemprices():
-    '''
-    returns the name and price of every item
-    :return: (str) (str) (str) (str) (str) (str) (str) (str) (str)
-    '''
-    rotations = 8
-    iterations = len(bzobj.items) // 8
-    totaliters = 0
-    list = []
-    returns = []
-    if len(bzobj.items) / 8 != (8*iterations):
-        leftover = len(bzobj.items) - (8*iterations)
-    while rotations > 0:
-        for i in range(iterations):
-            x = "({}:{})".format((bzobj.items2[totaliters].myname()), str((bzobj.items2[totaliters].price())))
-            list.append(x)
-            totaliters += 1
-        rstring = ", ".join(list)
-        list = []
-        returns.append(rstring)
-        rotations -= 1
-    if leftover != 0:
-        while totaliters <= (len(bzobj.items)):
-            x = "({}:{})".format((bzobj.items2[totaliters].myname()), str((bzobj.items2[totaliters].price())))
-            list.append(x)
-            totaliters += 1
-        rstring = ", ".join(list)
-        returns.append(rstring)
+    if itemindex == 0:
+        return False
+    if not bzobj.items2[itemindex].value() == -1 and not bzobj.items2[itemindex].price() == -1:
+        return round(bzobj.items2[itemindex].value() - bzobj.items2[itemindex].price(), 2)
     else:
-        returns.append("")
-    return returns[0], returns[1], returns[2], returns[3], returns[4], returns[5], returns[6], returns[7], returns[8]
-def itemvalues():
-    '''
-    returns the name and value of every item
-    :return: (str) (str) (str) (str) (str) (str) (str) (str) (str)
-    '''
-    rotations = 8
-    iterations = len(bzobj.items) // 8
-    totaliters = 0
-    list = []
-    returns = []
-    if len(bzobj.items) / 8 != (8*iterations):
-        leftover = len(bzobj.items) - (8*iterations)
-    while rotations > 0:
-        for i in range(iterations):
-            x = "({}:{})".format((bzobj.items2[totaliters].myname()), str((bzobj.items2[totaliters].value())))
-            list.append(x)
-            totaliters += 1
-        rstring = ", ".join(list)
-        list = []
-        returns.append(rstring)
-        rotations -= 1
-    if leftover != 0:
-        while totaliters <= (len(bzobj.items)):
-            x = "({}:{})".format((bzobj.items2[totaliters].myname()), str((bzobj.items2[totaliters].value())))
-            list.append(x)
-            totaliters += 1
-        rstring = ", ".join(list)
-        returns.append(rstring)
-    else:
-        returns.append("")
-    return returns[0], returns[1], returns[2], returns[3], returns[4], returns[5], returns[6], returns[7], returns[8]
+        return None
 
 def specificitemprice(item_name):
     '''
@@ -263,6 +210,7 @@ def specificitemprice(item_name):
     :param item_name: (str)
     :return: (float)
     '''
+    bzobj.updatePrices()
     item_name = item_name.split()
     templist = []
     for x in item_name:
@@ -270,12 +218,14 @@ def specificitemprice(item_name):
         templist.append(x)
     item_name = " ".join(templist)
     return bzobj.items2[bzobj.items.index(item_name)].price()
+
 def specificitemvalue(item_name):
     '''
     returns the value of a specific item
     :param item_name: (str)
     :return: (float)
     '''
+    bzobj.updatePrices()
     item_name = item_name.split()
     templist = []
     for x in item_name:
@@ -284,8 +234,13 @@ def specificitemvalue(item_name):
     item_name = " ".join(templist)
     return bzobj.items2[bzobj.items.index(item_name)].value()
 
-
 def goldenTooth(MONEY):
+    '''
+    returns the amount of wolf teeth and enchanted gold to buy, along with the profit and amount of golden teeth it wil produce
+    :param MONEY: (int)
+    :return: (tuple)
+    '''
+    bzobj.updatePrices()
     MONEY = MONEY / 10000
     MONEY = floor(MONEY)
     MONEY = MONEY * 10000
@@ -312,7 +267,6 @@ def goldenTooth(MONEY):
             continue
         break
     return (128 * AMOUNT, 32 * AMOUNT, AMOUNT, PROFIT * AMOUNT)
-
 
 if __name__ == "__main__":
     pass

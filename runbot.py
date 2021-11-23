@@ -1,0 +1,1 @@
+import main # takes advantage of if __name__ == "__main__".
